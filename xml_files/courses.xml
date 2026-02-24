@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="courses.xslt"?>
+
+<courses>
+    <course type="CS101">
+        <name>Introduction to Programming</name>
+        <instructor>Jane Smith</instructor>
+        <credits>5</credits>
+    </course>
+
+    <course type="CS102">
+        <name>Data Structures</name>
+        <instructor>Mark Brown</instructor>
+        <credits>6</credits>
+    </course>
+
+    <course type="CS103">
+        <name>Algorithms</name>
+        <instructor>Emily White</instructor>
+        <credits>6</credits>
+    </course>
+</courses>

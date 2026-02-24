@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root version="1.2">
+	<file source-language="en" target-language="sv-se">
+		<body>
+			<group resname="_ptcsma.acl" restype="file"/>
+			<trans-unit id="42006" restype="string">
+				<source>WARNING</source>
+				<target>VARNING</target>
+			</trans-unit>
+			<trans-unit id="42007" restype="string">
+				<source>Note</source>
+				<target>Obs!</target>
+			</trans-unit>
+			<trans-unit id="42008" restype="string">
+				<source>DANGER</source>
+				<target>FARA</target>
+			</trans-unit>
+			<trans-unit id="42009" restype="string">
+				<source>CAUTION</source>
+				<target>FÖRSIKTIGHET</target>
+			</trans-unit>
+			<trans-unit id="42010" restype="string" datatype="text/plain">
+				<source>EXIT</source>
+				<target>UTGÅNG</target>
+				<note priority="1">Used in emergency situations</note>
+			</trans-unit>
+			<trans-unit id="42011" restype="string" xml:space="preserve">
+				<source>Press "OK" to continue</source>
+				<target>Tryck "OK" för att fortsätta</target>
+			</trans-unit>
+			<trans-unit id="42012" restype="string" approved="yes">
+				<source>Settings</source>
+				<target>Inställningar</target>
+				<note>Menu label</note>
+			</trans-unit>
+			<trans-unit id="42013" restype="string" state="translated">
+				<source>Help</source>
+				<target>Hjälp</target>
+				<note>User interface element</note>
+			</trans-unit>
+			<trans-unit id="42014" restype="string">
+				<source>File not found.</source>
+				<target>Filen hittades inte.</target>
+				<alt-trans>
+					<target>Filen saknas.</target>
+					<note>Alternative translation</note>
+				</alt-trans>
+			</trans-unit>
+			<trans-unit id="42015" restype="string">
+				<source>Loading...</source>
+				<target>Laddar...</target>
+				<note>Indicates a loading state</note>
+			</trans-unit>
+			<trans-unit id="42016" restype="string">
+				<source>Connection lost.</source>
+				<target>Anslutningen bröts.</target>
+				<note>Displayed when network connection is lost</note>
+			</trans-unit>
+			<trans-unit id="42017" restype="string" datatype="text/html">
+				<source>Click</source>
+				<target>Klicka</target>
+				<note>Retry button text</note>
+			</trans-unit>
+			<trans-unit id="42018" restype="string">
+				<source>Session expired.</source>
+				<target>Sessionen har gått ut.</target>
+				<note>Authentication timeout message</note>
+			</trans-unit>
+			<trans-unit id="42019" restype="string" approved="yes">
+				<source>Submit</source>
+				<target>Skicka</target>
+				<note>Button label for form submission</note>
+			</trans-unit>
+			<trans-unit id="42020" restype="string">
+				<source>Cancel</source>
+				<target>Avbryt</target>
+				<note>Button label for canceling an action</note>
+			</trans-unit>
+		</body>
+	</file>
+</root>
