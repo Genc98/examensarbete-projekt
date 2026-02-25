@@ -10,7 +10,6 @@
 
         <fo:root>
 
-            <!-- Layout definition -->
             <fo:layout-master-set>
                 <fo:simple-page-master master-name="A4"
                     page-height="29.7cm"
@@ -21,18 +20,15 @@
                 </fo:simple-page-master>
             </fo:layout-master-set>
 
-            <!-- Page content -->
             <fo:page-sequence master-reference="A4">
                 <fo:flow flow-name="xsl-region-body">
 
-                    <!-- Title -->
                     <fo:block font-size="18pt"
                               font-weight="bold"
                               space-after="10pt">
                         Breakfast Menu
                     </fo:block>
 
-                    <!-- Loop through food -->
                     <xsl:for-each select="breakfast_menu/food">
 
                         <fo:block font-size="14pt"
