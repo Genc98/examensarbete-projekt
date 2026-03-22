@@ -1,32 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <xsl:stylesheet version="1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:template match="/">
         <html>
             <head>
-                <title>Course List</title>
-                <style>
-                    table {
-                        border-collapse: collapse;
-                        width: 60%;
-                    }
-                    th, td {
-                        border: 1px solid black;
-                        padding: 8px;
-                        text-align: left;
-                    }
-                    th {
-                        background-color: lightgray;
-                    }
-                </style>
+                <title>Courses</title>
             </head>
-
             <body>
                 <h2>Course List</h2>
-
-                <table>
+                <table border="1">
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
