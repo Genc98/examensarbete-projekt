@@ -89,28 +89,69 @@ def semantic_search(query, chunks, embeddings, top_k=30):
     ).embeddings[0].values
     scores = [cosine_similarity(query_embedding, emb) for emb in embeddings]
     top_indices = np.argsort(scores)[-top_k:][::-1]
-    return "\n\n".join([chunks[i] for i in top_indices])
+    return [chunks[i] for i in top_indices]
 
-def generate_user_prompt(query):
-    context = "\n".join(semantic_search(query, chunks, embeddings))
+def generate_user_prompt(query, chunks, embeddings):
 
-    user_prompt = f"Question is {query}. Here is the context: {context}"
+    context_chunks = semantic_search(query, chunks, embeddings)
+    context_text = "\n".join(context_chunks)
+    return f"Question is {query}. Here is the context: {context_text}"
 
-    return user_prompt
-
-def generate_response(system_prompt, user_message, model="gemini-2.0-flash"):
+def generate_response(system_prompt, user_query , chunks, embeddings, model="gemini-2.0-flash"):
     response = client.models.generate_content(
         model=model,
         config=genai.types.GenerateContentConfig(
             system_instruction=system_prompt),
-            contents=generate_user_prompt(user_message)
+            contents=generate_user_prompt(user_query, chunks, embeddings)
     )
 
-    return response
+    return response.text
 
 st.title("XML/XSLT Chatbot")
 
 uploaded_file = st.file_uploader("Upload a XML or XSL-file")
+
+if uploaded_file:
+
+    file_name = uploaded_file.name
+    file_text = os.path.splitext(file_name)[1].lower()
+    file_type = file_text.replace(".","")
+
+    tree = etree.parse(uploaded_file)
+    root = tree.getroot()
+
+    if file_type == "xml":
+        chunks = chunks_xml(root)
+    elif file_type == "xsl":
+        chunks = chunks_xsl(root)
+
+    st.write(f"Filetype: {file_type.upper()}")
+
+    embeddings = create_embeddings(chunks)
+    st.session_state['chunks'] = chunks
+    st.session_state['embeddings'] = embeddings
+
+    query = st.text_input("Write your question here")
+
+    if query: 
+        system_prompt = (
+        "You are a smart AI assistant that analyzes XML and XSl-files."
+        "All the information will be retrieved via RAG from the relevant context, no hardcoded values."
+        "Answer shortly, precisely and correctly based on the context."
+        "Answer the questions directly, without extra explanations."
+        "If the question is about the root-element, provide only the tag."
+        "If the question is a value, attribute, id or text, provide only the value."
+        "If the question contains the words 'path' or 'XPath', return the full absolute path from the root and include the predicates needed."
+        "If multiple elements share the same tags, the full absolute path must include a predicate that ditinguishes the correct element based on relevant attributes or child elements from the context, and it must never be generic."
+        "If the question is about a element that does not exist in the chunked RAG-context, respond: 'Information is not avaible in context'"
+        "If the question is about a XSL-element, get information from select- or match attribute according to question"
+    )
+        
+
+        anwser = generate_response(system_prompt, query ,st.session_state['chunks'], st.session_state['embeddings'])
+        st.text_area("Answer from Chatbot", value=anwser, height=300)
+
+
 
 
 
