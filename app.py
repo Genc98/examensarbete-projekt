@@ -4,7 +4,7 @@ from google import genai
 import numpy as np
 import os
 
-api_key = ''
+api_key = 'AIzaSyAWF1Quy2vlwBDeAw4bxDuDc6ouFAgLaEQ'
 client = genai.Client(api_key=api_key)
 
 def chunks_xml(element, path=""):
@@ -185,11 +185,11 @@ if uploaded_file:
             st.info(q2)
             st.success(a2)
 
-        query = st.text_input("Write your question here")
+    query = st.text_input("Write your question here")
 
-        if query:
-                anwser = generate_response(system_prompt, query ,st.session_state['chunks'], st.session_state['embeddings'])
-                st.text_area("Answer from Chatbot", value=anwser, height=300)
+    if query:
+            anwser = generate_response(system_prompt, query ,st.session_state['chunks'], st.session_state['embeddings'])
+            st.text_area("Answer from Chatbot", value=anwser, height=300)
 
 
 
