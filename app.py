@@ -4,7 +4,7 @@ from google import genai
 import numpy as np
 import os
 
-api_key = ''
+api_key = 'AIzaSyBU_0vVa9_PemRz-yc6nBen6sUgChnLuH8'
 client = genai.Client(api_key=api_key)
 
 def chunks_xml(element, path=""):
@@ -131,25 +131,65 @@ if uploaded_file:
     st.session_state['chunks'] = chunks
     st.session_state['embeddings'] = embeddings
 
-    query = st.text_input("Write your question here")
-
-    if query: 
-        system_prompt = (
-        "You are a smart AI assistant that analyzes XML and XSl-files."
-        "All the information will be retrieved via RAG from the relevant context, no hardcoded values."
-        "Answer shortly, precisely and correctly based on the context."
-        "Answer the questions directly, without extra explanations."
-        "If the question is about the root-element, provide only the tag."
-        "If the question is a value, attribute, id or text, provide only the value."
-        "If the question contains the words 'path' or 'XPath', return the full absolute path from the root and include the predicates needed."
-        "If multiple elements share the same tags, the full absolute path must include a predicate that ditinguishes the correct element based on relevant attributes or child elements from the context, and it must never be generic."
-        "If the question is about a element that does not exist in the chunked RAG-context, respond: 'Information is not avaible in context'"
-        "If the question is about a XSL-element, get information from select- or match attribute according to question"
-    )
+ 
+    system_prompt = (
+    "You are a smart AI assistant that analyzes XML and XSl-files."
+    "All the information will be retrieved via RAG from the relevant context, no hardcoded values."
+    "Answer shortly, precisely and correctly based on the context."
+    "Answer the questions directly, without extra explanations."
+    "If the question is about the root-element, provide only the tag."
+    "If the question is a value, attribute, id or text, provide only the value."
+    "If the question contains the words 'path' or 'XPath', return the full absolute path from the root and include the predicates needed."
+    "If multiple elements share the same tags, the full absolute path must include a predicate that ditinguishes the correct element based on relevant attributes or child elements from the context, and it must never be generic."
+    "If the question is about a element that does not exist in the chunked RAG-context, respond: 'Information is not avaible in context'"
+    "If the question is about a XSL-element, get information from select- or match attribute according to question"
+)
         
+    if file_type == "xml":
 
-        anwser = generate_response(system_prompt, query ,st.session_state['chunks'], st.session_state['embeddings'])
-        st.text_area("Answer from Chatbot", value=anwser, height=300)
+        q1 = "What is the root element?"
+        q2 = "Give me all unique elements in this XML-file?"
+
+        a1= generate_response(system_prompt, q1, chunks, embeddings)
+        a2= generate_response(system_prompt, q2, chunks, embeddings)
+
+        col1,col2 = st.columns(2)
+
+        with col1:
+            st.markdown("### Question 1")
+            st.info(q1)
+            st.success(a1)
+        
+        with col2:
+            st.markdown("### Question 2")
+            st.info(q2)
+            st.success(a2)
+
+    if file_type == "xsl":
+
+        q1 = "What templates (match/select) are used in this XSL-file?"
+        q2 = "What XSL instructions are used?"
+
+        a1 = generate_response(system_prompt, q1, chunks, embeddings)
+        a2 = generate_response(system_prompt, q2, chunks, embeddings)
+
+        col3,col4 = st.columns(2)
+
+        with col3:
+            st.markdown("### Question 1")
+            st.info(q1)
+            st.success(a1)
+
+        with col4:
+            st.markdown("### Question 2")
+            st.info(q2)
+            st.success(a2)
+
+        query = st.text_input("Write your question here")
+
+        if query:
+                anwser = generate_response(system_prompt, query ,st.session_state['chunks'], st.session_state['embeddings'])
+                st.text_area("Answer from Chatbot", value=anwser, height=300)
 
 
 
