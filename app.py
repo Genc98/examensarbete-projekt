@@ -4,7 +4,7 @@ from google import genai
 import numpy as np
 import os
 
-api_key = 'AIzaSyAWF1Quy2vlwBDeAw4bxDuDc6ouFAgLaEQ'
+api_key = ''
 client = genai.Client(api_key=api_key)
 
 def chunks_xml(element, path=""):
